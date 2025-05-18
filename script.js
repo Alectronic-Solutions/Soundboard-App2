@@ -52,19 +52,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // --- INITIAL SOUNDS CONFIGURATION ---
-    // Instead of a hardcoded list, fetch the manifest
-    let initialSoundFiles = [];
-
-    async function fetchSoundManifest() {
-        try {
-            const response = await fetch('sounds/sounds.json');
-            if (!response.ok) throw new Error('Failed to fetch sounds.json');
-            initialSoundFiles = await response.json();
-        } catch (e) {
-            console.error('Error loading sounds manifest:', e);
-            initialSoundFiles = [];
-        }
-    }
+    // Hardcoded list of sound files (no JSON needed)
+    const initialSoundFiles = [
+        "2000 Years Later.ogg",
+        "Accidents Happen.ogg",
+        "Add up those figures sir.ogg",
+        "Airhorn Buildup.ogg",
+        "Airhorn Classic.ogg",
+        "Airhorn Fast.ogg",
+        "Airhorn Sad.ogg",
+        "Airplane.ogg",
+        "All Star All Star.ogg",
+        "All this computer hacking is making me thirsty.ogg",
+        "All you can talk about is Money.ogg",
+        "Americas going to be great again gang.ogg"
+        // Add more .ogg filenames here as needed
+    ];
 
     // --- CORE FUNCTIONS ---
 
@@ -682,7 +685,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // --- INITIALIZATION SEQUENCE ---
-    await fetchSoundManifest();
     initializeSoundsData(); // Prepare sound objects from the initialSoundFiles list
     initializeAudio();      // Initialize Tone.js audio context and start loading sounds
 });
