@@ -1,0 +1,297 @@
+/* General body styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    color: white;
+    margin: 0; /* Reset default margin */
+}
+
+/* Sound button styling */
+.sound-button {
+    padding: 0.75rem 1rem; 
+    margin: 0.25rem; 
+    border-radius: 0.5rem; 
+    font-weight: 600;
+    color: white; 
+    cursor: pointer; 
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    border: none; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center; 
+    min-height: 70px; 
+    position: relative; /* For error indicators and edit overlay */
+    font-size: 0.75rem; 
+    line-height: 1.2; 
+    word-break: break-word; /* Allow long words to break to prevent overflow */
+}
+
+.sound-button .category-tag { 
+    font-size: 0.6rem; 
+    opacity: 0.7; 
+    margin-top: 2px; 
+}
+
+.sound-button:hover:not(.disabled):not(.error) {
+    transform: translateY(-2px) scale(1.02); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.sound-button:active:not(.disabled):not(.error) {
+    transform: translateY(0px) scale(0.98); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* States for sound buttons */
+.sound-button.loading { 
+    cursor: wait; 
+    opacity: 0.7; 
+}
+
+.sound-button.disabled, .sound-button.error { 
+    cursor: not-allowed; 
+    opacity: 0.5; 
+}
+
+.sound-button.error { 
+    background-color: #7f1d1d !important; /* Dark red for error state, important to override theme color */
+    border: 1px solid #f87171; 
+}
+
+.sound-button.error::after { /* Error indicator icon */
+    content: "!"; 
+    position: absolute; 
+    top: 2px; 
+    right: 5px;
+    color: #f87171; 
+    font-weight: bold; 
+    font-size: 0.8em;
+}
+
+/* Edit mode overlay icon for sound buttons */
+.sound-button.editable-overlay::before {
+    content: "\f044"; /* Font Awesome pencil icon unicode */
+    font-family: "Font Awesome 6 Free"; /* Ensure Font Awesome is loaded */
+    font-weight: 900; /* Required for Solid style Font Awesome icons */
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.7);
+    pointer-events: none; /* Allows click to pass through to the button itself */
+}
+
+/* Button color themes (Tailwind inspired) */
+.button-blue { background-color: #2563eb; } 
+.button-green { background-color: #059669; }
+.button-red { background-color: #dc2626; } 
+.button-yellow { background-color: #d97706; }
+.button-purple { background-color: #7c3aed; } 
+.button-pink { background-color: #db2777; }
+.button-indigo { background-color: #4f46e5; } 
+.button-teal { background-color: #0d9488; }
+.button-orange { background-color: #f97316; } 
+.button-lime { background-color: #84cc16; }
+.button-cyan { background-color: #06b6d4; } 
+.button-gray { background-color: #6b7280; } /* Default/fallback color */
+
+/* Containers for controls and toolbar */
+.controls-container, .toolbar-container {
+    display: flex; 
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%; 
+    max-width: 1000px; 
+    margin-bottom: 1rem; 
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    gap: 0.5rem; /* Spacing between items in the container */
+}
+
+.toolbar-container { 
+    justify-content: flex-start; /* Align toolbar items to the start */
+}
+
+/* Search input styling */
+#search-input {
+    padding: 0.6rem 0.8rem; 
+    border-radius: 0.5rem; 
+    border: 1px solid rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.15); 
+    color: white;
+    flex-grow: 1; /* Allow search input to take available space */
+    min-width: 120px; 
+}
+
+#search-input::placeholder { 
+    color: rgba(255,255,255,0.7); 
+}
+
+/* General styling for control buttons, toolbar buttons, and dropdowns */
+.control-button, .toolbar-button, .dropdown {
+    background-color: #4a5568; /* Tailwind gray-700 */
+    color: white; 
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem; 
+    font-weight: 500; 
+    transition: background-color 0.2s ease;
+    border: none; 
+    cursor: pointer; 
+    white-space: nowrap; /* Prevent text wrapping in buttons/dropdowns */
+}
+
+.control-button:hover, .toolbar-button:hover, .dropdown:hover { 
+    background-color: #2d3748; /* Tailwind gray-800 for hover */
+}
+
+.toolbar-button.active { 
+    background-color: #2563eb; /* Blue color for active state (e.g., Edit Mode) */
+}
+
+/* Hide the default file input for uploads; it's triggered by the styled button */
+#upload-sound-input { 
+    display: none; 
+}
+
+/* Grid container for sound buttons */
+.grid-container {
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive columns */
+    gap: 0.75rem; 
+    width: 100%; 
+    max-width: 1000px; 
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2); 
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); 
+    backdrop-filter: blur(5px); /* Frosted glass effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Title styling */
+.title {
+    font-size: 2.5rem; 
+    font-weight: 700; 
+    color: white; 
+    margin-top: 1.5rem;
+    margin-bottom: 1rem; 
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+}
+
+/* Audio status message styling */
+#audio-status {
+    margin-bottom: 1rem; 
+    font-size: 1rem; 
+    color: #e0e0e0;
+    min-height: 1.5rem; /* Reserve space to prevent layout shifts */
+    text-align: center; 
+    width: 100%; 
+    max-width: 900px;
+}
+
+/* Modal (pop-up window) styling */
+.modal {
+    display: none; /* Hidden by default, shown by JavaScript */
+    position: fixed; 
+    z-index: 1000; /* Ensure modal is on top */
+    left: 0; 
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; /* Enable scroll if content is too long */
+    background-color: rgba(0,0,0,0.6); /* Semi-transparent black background */
+    align-items: center; /* Vertically center modal content */
+    justify-content: center; /* Horizontally center modal content */
+}
+
+.modal-content {
+    background-color: #2d3748; /* Dark gray background for modal content */
+    color: white; 
+    padding: 20px; 
+    border-radius: 8px;
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Maximum width for larger screens */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-content label { 
+    display: block; 
+    margin-top: 10px; 
+    margin-bottom: 5px; 
+}
+
+.modal-content input, .modal-content select {
+    width: 100%; 
+    padding: 8px; 
+    margin-bottom: 10px; 
+    border-radius: 4px;
+    border: 1px solid #4a5568; 
+    background-color: #1a202c; /* Very dark input background */
+    color: white;
+}
+
+.modal-content button { 
+    margin-top: 10px; 
+    margin-right: 10px; /* Spacing for multiple buttons */
+}
+        
+/* Category Management Modal List styling */
+#category-list { 
+    list-style: none; 
+    padding: 0; 
+    max-height: 200px; /* Limit height and allow scrolling */
+    overflow-y: auto; 
+    margin-bottom: 15px;
+}
+
+#category-list li {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 8px; 
+    border-bottom: 1px solid #4a5568; /* Separator for list items */
+}
+
+#category-list li:last-child { 
+    border-bottom: none; /* Remove border from last item */
+}
+
+#category-list .category-name-span { 
+    flex-grow: 1; /* Allow category name to take available space */
+}
+
+#category-list input[type="text"] { /* Styling for inline editing input */
+    flex-grow: 1; 
+    margin-right: 5px; 
+}
+
+#category-list button { /* Styling for small buttons within the list (edit/delete) */
+    padding: 4px 8px; 
+    font-size: 0.8em; 
+    margin-left: 5px; 
+}
+
+/* Styling for icon-only buttons (e.g., edit/delete category icons) */
+.icon-button { 
+    background: none; 
+    border: none; 
+    color: #cbd5e0; /* Light gray icon color */
+    cursor: pointer; 
+}
+
+.icon-button:hover { 
+    color: white; /* White icon color on hover */
+}

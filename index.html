@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Soundboard App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="title">Advanced Soundboard</h1>
+    <div id="audio-status"></div>
+
+    <div class="toolbar-container">
+        <button id="upload-sound-button" class="toolbar-button"><i class="fas fa-upload"></i> Upload</button>
+        <input type="file" id="upload-sound-input" accept=".ogg" multiple> <button id="edit-mode-button" class="toolbar-button"><i class="fas fa-edit"></i> Edit Mode</button>
+        <button id="manage-categories-button" class="toolbar-button"><i class="fas fa-tags"></i> Categories</button>
+        <select id="category-filter-dropdown" class="dropdown">
+            <option value="all">All Categories</option>
+            </select>
+        <select id="sort-by-dropdown" class="dropdown">
+            <option value="name-asc">Sort: Name (A-Z)</option>
+            <option value="name-desc">Sort: Name (Z-A)</option>
+            <option value="category">Sort: Category</option>
+            </select>
+    </div>
+
+    <div class="controls-container">
+        <input type="text" id="search-input" placeholder="Search sounds...">
+        <button id="stop-all-button" class="control-button"><i class="fas fa-stop-circle"></i> Stop All</button>
+    </div>
+
+    <div id="soundboard-container" class="grid-container">
+        </div>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="edit-modal-title" class="text-xl font-semibold mb-4">Edit Sound</h3>
+            <input type="hidden" id="edit-sound-id"> <div><label for="edit-sound-name">Name:</label><input type="text" id="edit-sound-name"></div>
+            <div><label for="edit-sound-color">Color:</label><select id="edit-sound-color"></select></div>
+            <div>
+                <label for="edit-sound-category">Category:</label><select id="edit-sound-category"></select>
+                <input type="text" id="edit-new-category-name" placeholder="Or type new category name" class="mt-2">
+            </div>
+            <button id="save-edit-button" class="toolbar-button bg-blue-500 hover:bg-blue-600">Save Changes</button>
+            <button id="cancel-edit-button" class="toolbar-button bg-gray-500 hover:bg-gray-600">Cancel</button>
+        </div>
+    </div>
+
+    <div id="manage-categories-modal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-semibold mb-4">Manage Categories</h3>
+            <ul id="category-list">
+                </ul>
+            <div class="mt-4">
+                <label for="new-category-input-name">Add New Category:</label>
+                <input type="text" id="new-category-input-name" placeholder="New category name">
+                <button id="add-category-button" class="toolbar-button bg-green-500 hover:bg-green-600 mt-2">Add Category</button>
+            </div>
+            <button id="close-manage-categories-button" class="toolbar-button bg-gray-500 hover:bg-gray-600 mt-4">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
